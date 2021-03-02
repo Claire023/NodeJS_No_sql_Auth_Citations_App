@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détails Citations</title>
+</head>
+<body>
+
+    <h1>Détails Citation </h1>
+
+    <h5>Description :<%= quotes.description%></h5>
+    <h5>Auteur :<%= quotes.author%></h5>
+    <h5>Livre :<%= quotes.book%></h5>
+    <h5>Année Publication :<%= quotes.year%></h5>
+    <h5><a href="/quotes/<%= quotes._id%>/edit">Editer</a></h5>
+
+    <form action="/quotes/<%= quotes._id%>?_method=DELETE" method="POST">
+        <button>supprimer</button>
+    </form>
+    <h5><a href="/quotes/">Retour aux citations</a></h5>
+
+
+</body>
+</html>

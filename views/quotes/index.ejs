@@ -12,12 +12,20 @@
 
     <ul>
         <% for (let quote of quotes){%>
+         
             <li><%= quote.description%></li>
             <li><%= quote.author%></li>
             <li><%= quote.book%></li>
             <li><%= quote.year%></li>
+            <li>Ajouter en favoris</li>
+            <li><a href="/quotes/<%= quote._id%>">Voir details</a></li>
+
+            
             <%}%> 
     </ul>
+
+    <a href="/quotes/new">Ajouter une citation</a>
+
 
 
 </body>
