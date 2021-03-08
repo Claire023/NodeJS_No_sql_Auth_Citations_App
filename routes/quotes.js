@@ -12,10 +12,10 @@ router.get('/', async (req,res)=>{
 
 
 // obtenir la liste des citations
-router.get('/', async (req,res)=>{
-    const authors = await db.getCollection('quotes').distinct('author');
-   res.render('quotes/index', {authors})
-});
+// router.get('/author', async (req,res)=>{
+//     const authors = await db.getCollection('quotes').distinct('author');
+//    res.render('quotes/index', {authors})
+// });
 
 
 //acceder au form pour post

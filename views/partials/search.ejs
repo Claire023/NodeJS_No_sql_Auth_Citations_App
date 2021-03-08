@@ -9,10 +9,10 @@
 
           <select  class="form-select" name="author">
             {# <option value="" disabled selected>Choisir un auteur</option> #}
-            <% for (let author of authors){%>
+            <% for (let quote of quotes){%>
        
       
-            <option name="<%=author%>" value="<%=author%>"><%=author%></option>
+            <option name="<%=quote.author%>" value="<%=quote.author%>"><%=quote.author%></option>
           
             <%}%> 
           </select>
