@@ -9,7 +9,7 @@ const passport = require('passport');
 const flash = require('connect-flash');
 const LocalStrategy = require('passport-local');
 const User =  require('./models/user');
-
+const searchRoutes = require('./routes/search');
 const userRoutes = require('./routes/users');
 const quoteRoutes = require('./routes/quotes');
 const {isLoggedIn} = require('./middleware');
@@ -78,6 +78,7 @@ app.use((req,res,next)=>{
 //declaration des routes
 app.use('/', userRoutes);
 app.use('/quotes', quoteRoutes);
+app.use('/search', searchRoutes);
 
 
 

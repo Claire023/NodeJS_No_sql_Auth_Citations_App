@@ -1,0 +1,28 @@
+<div class="container">
+
+    <form method="POST" action="/search/author">
+        <div class="mb-3">
+          <input type="text" class="form-control" placeholder="Filtre de Recherche">
+        </div>
+        <div class="mb-3">
+
+
+          <select  class="form-select" name="author">
+            {# <option value="" disabled selected>Choisir un auteur</option> #}
+            <% for (let author of authors){%>
+       
+      
+            <option name="<%=author%>" value="<%=author%>"><%=author%></option>
+          
+            <%}%> 
+          </select>
+
+        </div>
+    </div>
+      
+        <button type="submit" class="btn btn-primary mb-4">Rechercher</button>
+      </form>
+
+  
+    
+</div>

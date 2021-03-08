@@ -3,11 +3,20 @@ const router = express.Router();
 const Quote = require('../models/quote');
 const {isLoggedIn} = require('../middleware');
 
+
 // obtenir la liste des citations
 router.get('/', async (req,res)=>{
     const quotes = await Quote.find({});
    res.render('quotes/index', {quotes})
 });
+
+
+// obtenir la liste des citations
+router.get('/', async (req,res)=>{
+    const authors = await db.getCollection('quotes').distinct('author');
+   res.render('quotes/index', {authors})
+});
+
 
 //acceder au form pour post
 router.get('/new', isLoggedIn, (req,res)=>{
@@ -27,7 +36,7 @@ router.post('/', isLoggedIn, async(req,res)=>{
 //details de la citation
 router.get('/:id', async(req,res)=>{
     const quotes = await Quote.findById(req.params.id).populate('publisher');
-    console.log(quotes);
+    // console.log(quotes);
     res.render('quotes/details', {quotes});
 });
 
