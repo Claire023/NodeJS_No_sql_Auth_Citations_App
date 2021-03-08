@@ -1,0 +1,30 @@
+<% layout('layouts/boilerplate') %>
+
+
+
+<div class="card" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title">Détails Citation</h5>
+      <h6 class="card-subtitle mb-2 text-muted">Auteur : <%= quotes.author%></h6>
+      <h6 class="card-subtitle mb-2 text-muted">Livre : <%= quotes.book%></h6>
+      <h6 class="card-subtitle mb-2 text-muted">Année de publication : <%= quotes.year%></h6>
+      <h6 class="card-subtitle mb-2 text-muted">bloc de citation publié par : <%= quotes.publisher.username %></h6>
+      <p class="card-text">citation : <%= quotes.description%></p>
+      
+      <%  if( currentUser && quotes.publisher.equals(currentUser._id))  {%>
+      <div class="d-flex">
+  
+        <button type="button" class="btn btn-warning mx-2"><a href="/quotes/<%= quotes._id%>/edit">Editer</a></button>
+        <form action="/quotes/<%= quotes._id%>?_method=DELETE" method="POST">
+        <button class="btn btn-danger">Supprimer</button>
+      </form>
+    </div>
+
+    <%}%>
+
+    </div>
+  </div>
+
+
+    <h5><a href="/quotes/">Retour aux citations</a></h5>
+

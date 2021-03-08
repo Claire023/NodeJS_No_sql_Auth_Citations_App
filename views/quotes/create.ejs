@@ -1,0 +1,38 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="container">
+    <div class="row">
+        <div class="container text-center">
+            <div class="col-6 offset-3">
+            
+            <h2>Entrez votre citation :</h2>
+
+    <form action="/quotes" method="POST">
+        <div class="mb-3">
+            <label class="form-label" for="description">Citation:</label>
+            <textarea class="form-control"  id="description" rows="3" name="quote[description]"></textarea>
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="author">Auteur:</label>
+            <input class="form-control" type="text" id="author" name="quote[author]">
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="book">Livre contenant la citation :</label>
+            <input class="form-control" type="text" id="book" name="quote[book]">
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="year">Année de publication:</label>
+            <input class="form-control" type="text" id="year" name="quote[year]">
+        </div>
+
+        <button type="submit" class="btn btn-danger">Ajouter la citation</button>
+
+
+    </form>
+
+        </div>
+    </div>
+
+    </div>
+
+</div>

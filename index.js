@@ -1,47 +1,26 @@
 const express = require('express');
 const path = require('path');
+const methodOverride = require('method-override');
+const ejsMate = require('ejs-mate');
+const session = require('express-session');
 const mongoose = require('mongoose');
-const Quote = require('./models/quote');
-
-
-// const quotes_table = [
-//     {
-//         description: 'my first quote',
-//         author: 'Claire',
-//         book: 'No book',
-//         year: '2021'
-//     },
-//     {
-//         description: 'Une quote',
-//         author: 'Nico',
-//         book: 'Satan est présent',
-//         year: '1994'
-//     },
-//     {
-//         description: 'Une quote',
-//         author: 'Maxime',
-//         book: 'Un livre à la con',
-//         year: '1999'
-//     },
-//     {
-//         description: 'Une quote',
-//         author: 'Lucie',
-//         book: 'Une licorne',
-//         year: '1992'
-//     },
-//     {
-//         description: 'Une quote',
-//         author: 'Yanis',
-//         book: 'Martine va à la ferme',
-//         year: '1996'
-//     },
-// ]
+const ExpressError = require('./utils/ExpressError');
+const passport = require('passport');
+const flash = require('connect-flash');
+const LocalStrategy = require('passport-local');
+const User =  require('./models/user');
+const searchRoutes = require('./routes/search');
+const userRoutes = require('./routes/users');
+const quoteRoutes = require('./routes/quotes');
+const {isLoggedIn} = require('./middleware');
 
 mongoose.connect('mongodb://localhost:27017/quotes',{
     useNewUrlParser:true,
     useCreateIndex:true,
-    useUnifiedTopology:true
+    useUnifiedTopology:true,
+    useFindAndModify:false
 });
+
 
 
 const db = mongoose.connection;
@@ -52,30 +31,54 @@ db.once("open", ()=>{
 
 const app = express();
 
+//pour parser les templates
+app.engine('ejs', ejsMate);
+
 app.set('view engine', 'ejs');
 app.set('views',path.join(__dirname,'views'))
 
+app.use(express.urlencoded({extended:true}));
 
-app.get('/', (req,res)=>{
-    res.render("Home");
+//pour les sessions
+const sessionConfig = {
+    secret: 'thisshouldbeabettersecret!',
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        httpOnly: true,
+        expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
+        maxAge: 1000 * 60 * 60 * 24 * 7
+    }
+}
+
+
+app.use(session(sessionConfig));
+//pour les messages d'erreur
+app.use(flash());
+//utiliser les put dans formulaire
+app.use(methodOverride('_method'));
+
+
+//Authentication
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+
+app.use((req,res,next)=>{
+    res.locals.currentUser = req.user;
+    res.locals.success = req.flash('success');
+    res.locals.error = req.flash('error');
+    next();
 })
 
-// app.get('/makequote',  (req,res)=>{
-//     Quote.find({}).then((quotes_table)=>{
-//         res.send(quotes_table);
-//     })
-// })
 
-
-// obtenir la liste des citations
-app.get('/quotes', async (req,res)=>{
-    const quotes = await Quote.find({});
-    // const q = new Quote({description:'my first quote', author:'Claire', book:'No book', year:'2021'});
-   res.render('quotes/index', {quotes})
-})
-
-
-
+//declaration des routes
+app.use('/', userRoutes);
+app.use('/quotes', quoteRoutes);
+app.use('/search', searchRoutes);
 
 
 

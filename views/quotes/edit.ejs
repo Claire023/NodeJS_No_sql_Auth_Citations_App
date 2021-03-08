@@ -1,0 +1,33 @@
+<% layout('layouts/boilerplate') %>
+
+    <div class="container">
+
+
+        <form action="/quotes/<%=quotes._id%>?_method=PUT" method="POST">
+          
+            <div>
+                <label for="description">Description:</label>
+                <input type="text" id="description" name="quote[description]" value="<%=quotes.description%>">
+            </div>
+            <div>
+                <label for="author">Author:</label>
+                <input type="text" id="author" name="quote[author]" value="<%=quotes.author%>">
+            </div>
+            <div>
+                <label for="book">Livre:</label>
+                <input type="text" id="book" name="quote[book]" value="<%=quotes.book%>">
+            </div>
+            <div>
+                <label for="year">Année de publication:</label>
+                <input type="text" id="year" name="quote[year]" value="<%=quotes.year%>">
+            </div>
+    
+            <button type="submit" class="btn btn-danger">Ajouter la citation</button>
+    
+    
+        </form>
+
+
+  
+    </div>
+    
