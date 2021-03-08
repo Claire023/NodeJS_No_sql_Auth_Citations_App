@@ -1,32 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ciations index</title>
-</head>
-<body>
+<% layout('layouts/boilerplate') %>
 
-    <h1>Liste des citations</h1>
+<div class="d-flex">
+    <h1 class="pr-2">Liste des citations</h1>
+    <button type="button" class="btn btn-outline-primary mx-4"><a href="/quotes/new">Ajouter une nouvelle citation</a></button>
+</div>
 
     <ul>
         <% for (let quote of quotes){%>
-         
-            <li><%= quote.description%></li>
-            <li><%= quote.author%></li>
-            <li><%= quote.book%></li>
-            <li><%= quote.year%></li>
-            <li>Ajouter en favoris</li>
-            <li><a href="/quotes/<%= quote._id%>">Voir details</a></li>
 
-            
+            <div class="card mb-3" style="width: 18rem;">
+                <div class="card-body">
+                  <h5 class="card-title"><%= quote.book%></h5>
+                  <h6 class="card-subtitle mb-2 text-muted"><%= quote.author%></h6>
+                  <p class="card-text"><p><%= quote.description%></p>
+                  <a href="/quotes/<%= quote._id%>" class="card-link">Voir détails</a>
+                  <a href="#" class="card-link">Ajouter en favoris</a>
+                </div>
+              </div>
+
+
             <%}%> 
     </ul>
 
-    <a href="/quotes/new">Ajouter une citation</a>
 
 
-
-</body>
-</html>
