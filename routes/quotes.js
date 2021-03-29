@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Quote = require('../models/quote');
+const Author =  require('../models/author');
 const {isLoggedIn} = require('../middleware');
 
 
@@ -23,10 +24,18 @@ router.get('/new', isLoggedIn, (req,res)=>{
     res.render('quotes/create')
  });
 
+
+//  find({}).populate('currentTrain').then((book_trains)=>{
+//     res.status(200).send(book_trains);
+// })
+
  //Créer une reservation
 router.post('/', isLoggedIn, async(req,res)=>{
     const quote = new Quote(req.body.quote);
+    quote.author = req.author._id;
     quote.publisher = req.user._id;
+    console.log("object");
+    console.log(req.body.quote);
     console.log(quote.publisher);
     await quote.save();
     res.redirect(`quotes/${quote._id}`);
@@ -35,7 +44,7 @@ router.post('/', isLoggedIn, async(req,res)=>{
 
 //details de la citation
 router.get('/:id', async(req,res)=>{
-    const quotes = await Quote.findById(req.params.id).populate('publisher');
+    const quotes = await Quote.findById(req.params.id).populate('author').populate('publisher');
     // console.log(quotes);
     res.render('quotes/details', {quotes});
 });
