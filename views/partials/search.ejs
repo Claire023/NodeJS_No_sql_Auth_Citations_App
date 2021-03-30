@@ -4,17 +4,14 @@
 
     <form method="GET" action="/quotes/author">
         <div class="mb-3">
-          <input type="text" class="form-control" placeholder="Rechercher une citation" name="coucou">
+          <input type="text" class="form-control" placeholder="Rechercher une citation" name="search">
         </div>
         <div class="mb-3">
 
-
           <select  class="form-select" name="author"> #}
-            
-            <option value="" disabled selected>Choisir un auteur</option>
+            <option value="" selected>Choisir un auteur</option>
             <% for (let s of auth){%>
-       
-      
+    
             <option name="<%=s%>" value="<%=s%>"><%=s%></option>
           
             <%}%> 

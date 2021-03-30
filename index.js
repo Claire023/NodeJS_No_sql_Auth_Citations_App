@@ -13,6 +13,7 @@ const userRoutes = require('./routes/users');
 const quoteRoutes = require('./routes/quotes');
 const {isLoggedIn} = require('./middleware');
 
+
 mongoose.connect('mongodb://localhost:27017/quotes',{
     useNewUrlParser:true,
     useCreateIndex:true,
@@ -37,6 +38,7 @@ app.set('view engine', 'ejs');
 app.set('views',path.join(__dirname,'views'))
 
 app.use(express.urlencoded({extended:true}));
+app.use(express.json());
 
 //pour les sessions
 const sessionConfig = {

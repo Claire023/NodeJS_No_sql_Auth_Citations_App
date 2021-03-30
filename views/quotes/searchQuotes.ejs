@@ -1,0 +1,19 @@
+<% layout('layouts/boilerplate') %>
+
+
+<h1>Liste des Citations par recherche </h1>
+
+<% for (let s of searchQuote){%>
+    <div class="card" style="width: 18rem;">
+    <div class="card-body">
+    <h5 class="card-title">Détails Citation</h5>
+    <h6 class="card-subtitle mb-2 text-muted">Auteur : <%= s.author%></h6>
+    <h6 class="card-subtitle mb-2 text-muted">Livre : <%= s.book%></h6>
+    <h6 class="card-subtitle mb-2 text-muted">Année de publication : <%= s.year%></h6>
+    <h6 class="card-subtitle mb-2 text-muted">bloc de citation publié par : <%= s.publisher.username %></h6>
+    <p class="card-text">citation : <%= s.description%></p>
+
+</div>
+</div>
+<%}%> 
+

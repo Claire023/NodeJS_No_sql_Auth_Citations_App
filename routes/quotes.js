@@ -8,15 +8,27 @@ const {isLoggedIn} = require('../middleware');
 router.get('/', async (req,res)=>{
     const quotes = await Quote.find({});
     const auth = await Quote.distinct("author");
-    console.log(req.body);
+
    res.render('quotes/index', {quotes,auth})
 });
 
 
+//rechercher par auteur ou par chaîne de caracteres
 router.get('/author', async (req,res)=>{  
     let result = req.query.author;
-    let list = await Quote.find({"author": result});
-    res.render('quotes/searchResult', {list});
+    let search = req.query.search;
+
+    if(result  &&  search){
+        let searchQuoteAuthor = await Quote.find({"description":new RegExp(search), "author": result });
+        res.render('quotes/searchQuoteAuthor', {searchQuoteAuthor});
+    } else if(result  !== '') {
+        let list = await Quote.find({"author": result});
+        res.render('quotes/searchResult', {list});
+    }else {
+        let searchQuote = await Quote.find({"description":new RegExp(search)});
+        console.log(searchQuote);
+        res.render('quotes/searchQuotes',{searchQuote});
+    }  
  });
 
 

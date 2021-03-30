@@ -4,7 +4,6 @@
 
 
         <form action="/quotes/<%=quotes._id%>?_method=PUT" method="POST">
-          
             <div>
                 <label for="description">Description:</label>
                 <input type="text" id="description" name="quote[description]" value="<%=quotes.description%>">
@@ -23,8 +22,6 @@
             </div>
     
             <button type="submit" class="btn btn-danger">Ajouter la citation</button>
-    
-    
         </form>
 
 
