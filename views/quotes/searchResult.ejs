@@ -1,17 +1,22 @@
 <% layout('layouts/boilerplate') %>
 
-<div class="container">
+
+    <h1>Liste des Citations pour l'auteur spécifié </h1>
+        <% for (let l of list){%>
+       
 
 
+<div class="card" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title">Détails Citation</h5>
+      <h6 class="card-subtitle mb-2 text-muted">Auteur : <%= l.author%></h6>
+      <h6 class="card-subtitle mb-2 text-muted">Livre : <%= l.book%></h6>
+      <h6 class="card-subtitle mb-2 text-muted">Année de publication : <%= l.year%></h6>
+      <h6 class="card-subtitle mb-2 text-muted">bloc de citation publié par : <%= l.publisher.username %></h6>
+      <p class="card-text">citation : <%= l.description%></p>
+      
+     
 
-
-    <h1>Coucou</h1>
-
-
-
-
-
-
-
-
-</div>
+    </div>
+  </div>
+  <%}%> 

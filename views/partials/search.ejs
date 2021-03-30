@@ -1,18 +1,21 @@
+<% layout('layouts/boilerplate') %>
+
 <div class="container">
 
-    <form method="POST" action="/search/author">
+    <form method="GET" action="/quotes/author">
         <div class="mb-3">
-          <input type="text" class="form-control" placeholder="Filtre de Recherche">
+          <input type="text" class="form-control" placeholder="Rechercher une citation" name="coucou">
         </div>
         <div class="mb-3">
 
 
-          <select  class="form-select" name="author">
-            {# <option value="" disabled selected>Choisir un auteur</option> #}
-            <% for (let quote of quotes){%>
+          <select  class="form-select" name="author"> #}
+            
+            <option value="" disabled selected>Choisir un auteur</option>
+            <% for (let s of auth){%>
        
       
-            <option name="<%=quote.author%>" value="<%=quote.author%>"><%=quote.author%></option>
+            <option name="<%=s%>" value="<%=s%>"><%=s%></option>
           
             <%}%> 
           </select>

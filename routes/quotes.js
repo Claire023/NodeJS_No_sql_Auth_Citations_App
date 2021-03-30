@@ -7,15 +7,19 @@ const {isLoggedIn} = require('../middleware');
 // obtenir la liste des citations
 router.get('/', async (req,res)=>{
     const quotes = await Quote.find({});
-   res.render('quotes/index', {quotes})
+    const auth = await Quote.distinct("author");
+    console.log(req.body);
+   res.render('quotes/index', {quotes,auth})
 });
 
 
-// obtenir la liste des citations
-// router.get('/author', async (req,res)=>{
-//     const authors = await db.getCollection('quotes').distinct('author');
-//    res.render('quotes/index', {authors})
-// });
+router.get('/author', async (req,res)=>{  
+    let result = req.query.author;
+    let list = await Quote.find({"author": result});
+    res.render('quotes/searchResult', {list});
+ });
+
+
 
 
 //acceder au form pour post
@@ -24,9 +28,7 @@ router.get('/new', isLoggedIn, (req,res)=>{
  });
 
 
-//  find({}).populate('currentTrain').then((book_trains)=>{
-//     res.status(200).send(book_trains);
-// })
+
 
  //Créer une reservation
 router.post('/', isLoggedIn, async(req,res)=>{
