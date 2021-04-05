@@ -1,7 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const Quote = require('../models/quote');
+const User = require('../models/user');
 const {isLoggedIn} = require('../middleware');
+const user = require('../models/user');
 
 
 // obtenir la liste des citations
@@ -17,7 +19,6 @@ router.get('/', async (req,res)=>{
 router.get('/author', async (req,res)=>{  
     let result = req.query.author;
     let search = req.query.search;
-
     if(result  &&  search){
         let searchQuoteAuthor = await Quote.find({"description":new RegExp(search), "author": result });
         res.render('quotes/searchQuoteAuthor', {searchQuoteAuthor});
@@ -33,16 +34,13 @@ router.get('/author', async (req,res)=>{
 
 
 
-
 //acceder au form pour post
 router.get('/new', isLoggedIn, (req,res)=>{
     res.render('quotes/create')
  });
 
 
-
-
- //Créer une reservation
+ //Créer une citation
 router.post('/', isLoggedIn, async(req,res)=>{
     const quote = new Quote(req.body.quote);
     quote.publisher = req.user._id;
@@ -62,6 +60,29 @@ router.get('/:id', async(req,res)=>{
 });
 
 
+
+//ajouter une citation en favori
+router.get('/favorites/:id',isLoggedIn,  async(req,res)=>{
+
+    const user = await User.findById(req.user._id);
+    let favorite_id = req.params.id;
+
+    if(favorite_id in user.favorites){
+         await User.favorites.findByIdAndDelete(favorite_id); 
+    }else{
+        
+        user.favorites = favorite_id;
+        user.email = req.user.email;
+        user.save();
+        
+    }
+    res.render('quotes/favorites');
+
+ });
+
+
+
+
 router.get('/:id/edit', async(req,res)=>{
     const quotes = await Quote.findById({_id:req.params.id})
     res.render('quotes/edit',{quotes});
@@ -71,9 +92,10 @@ router.get('/:id/edit', async(req,res)=>{
 //petit bug de redirection mais sinon ca fonctionne
 router.put('/:id', async(req,res)=>{
     const { id } = req.params;
-    const quote = await Quote.findByIdAndUpdate(id, { ...req.body.quote });
+    await Quote.findByIdAndUpdate(id, { ...req.body.quote });
     res.redirect('/quotes');
 });
+
 
 
 router.delete('/:id', async(req,res)=>{

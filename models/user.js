@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 //pour authentication
 const passportLocalMongoose = require('passport-local-mongoose');
+const quote = require('./quote');
 
 
 const UserSchema = new Schema({
@@ -10,9 +11,9 @@ const UserSchema = new Schema({
         required:true,
         unique:true
     },
-    favorite:{
-        type:Array,
-        
+    favorites : {    
+        type:mongoose.Schema.Types.ObjectId, 
+        ref:'Quote'
     }
 });
 
