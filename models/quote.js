@@ -1,7 +1,5 @@
 const mongoose = require('mongoose');
 
-
-
 const QuoteSchema = new mongoose.Schema({
     description:String,
     author:String,

@@ -11,10 +11,10 @@ const UserSchema = new Schema({
         required:true,
         unique:true
     },
-    favorites : {    
+    favorites : [{    
         type:mongoose.Schema.Types.ObjectId, 
         ref:'Quote'
-    }
+    }]
 });
 
 

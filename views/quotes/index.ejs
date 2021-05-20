@@ -5,7 +5,7 @@
 
 <div class="d-flex">
     <h1 class="pr-2">Liste des citations</h1>
-    <button type="button" class="btn btn-outline-primary mx-4"><a href="/quotes/new">Ajouter une nouvelle citation</a></button>
+    <button href="/quotes/new" type="button" class="btn btn-outline-primary mx-4"><a href="/quotes/new" style="text-decoration:none;color:black;">Ajouter une nouvelle citation</a></button>
 </div>
 
     <ul>
@@ -19,17 +19,11 @@
                   <a href="/quotes/<%= quote._id%>" class="card-link">Voir détails</a>
                 
                   <form action="/quotes/favorites/<%= quote._id%>" method="GET">
-                    <button type="submit" class="btn btn-warning">ajouter aux favoris</button>
+                    <button onclick="change()" type="submit" class="btn btn-warning" id="fav_button">
+                      <span>&#9733;</span></button>
                   </form>
-
-
-                  
                 </div>
               </div>
 
-
             <%}%> 
     </ul>
-
-
-

@@ -1,0 +1,47 @@
+<% layout('layouts/boilerplate') %>
+
+<h2 class="text-center">Tableaux Statistiques</h2>
+
+
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Nombre citations sans auteur :</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><%= quoteWithoutAuthor%></td>
+      </tr>
+    </tbody>
+  </table>
+
+
+
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Auteur le plus cité :</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><%= mainAuthor[0]._id%> (nombre de citations en rapport à l'auteur : <%= mainAuthor[0].count%>)</td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Meilleur utilisateur(ayant fait le plus de publications) : </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><%= findUserName.username%></td>
+      </tr>
+    </tbody>
+  </table>
